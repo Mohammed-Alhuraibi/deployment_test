@@ -1,0 +1,27 @@
+name: Update Deployment File
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline Win"]
+    types:
+      - completed
+
+jobs:
+  update-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update deployment.yaml
+        run: |
+          NEW_IMAGE_TAG="${{ env.IMAGE_TAG }}"
+          sed -i "s|image: .*/.*|image: ${NEW_IMAGE_TAG}|g" deployment.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add deployment.yaml
+          git commit -m "Update deployment.yaml with new Docker image tag"
+          git push
