@@ -27,3 +27,5 @@ jobs:
           git add deployment.yaml
           git commit -m "Update deployment.yaml with new Docker image tag"
           git push
+        env:
+          GIT_AUTH_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}  # Set token for pushing changes
