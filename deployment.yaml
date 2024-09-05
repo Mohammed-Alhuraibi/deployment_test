@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: github-71c750065a0c29a26eaaac030f17401ced96ac21
+        image: backend-todo:github-71c750065a0c29a26eaaac030f17401ced96ac21
         ports:
         - containerPort: 5432
         env:
